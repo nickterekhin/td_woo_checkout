@@ -11,30 +11,27 @@ class TD_Woo_Checkout_Framework
 {
 
 
-    function add_show_hide_css($hide=false)
+    function is_show_hide_css()
     {
-
-        if(get_transient('lv_choose')) {
-            if ($hide)
-                return "td-hide-cart-item";
-            return "td-show-cart-item";
-            }
-
-        if($hide)
-            return $this->is_user_has_lv_account()?"td-hide-cart-item":"td-show-cart-item";
-
-        return !$this->is_user_has_lv_account()?"td-hide-cart-item":"td-show-cart-item";
+        return get_transient('lv_choose')?true:false;
     }
 
 
+    function is_user_lv_subscriber()
+    {
+        if(is_user_logged_in())
+        {
+            return  get_user_meta(get_current_user_id(),'lv_sub',true);
+
+        }
+        return false;
+    }
     function is_user_has_lv_account()
     {
 
         if(is_user_logged_in())
         {
-            $lv_sub = get_user_meta(get_current_user_id(),'lv_sub',true);
-            return $lv_sub;
-
+            return  !empty(get_user_meta(get_current_user_id(),'lv_token',true));
         }
         return false;
     }
@@ -43,7 +40,7 @@ class TD_Woo_Checkout_Framework
     {
          $discount = 0;
 
-        if(td_woo_checkout_api()->is_user_has_lv_account())
+        if(td_woo_checkout_api()->is_user_lv_subscriber())
             $discount = get_option('lv_member_discount');
 
 
@@ -62,7 +59,7 @@ class TD_Woo_Checkout_Framework
             {
                 $userId = get_current_user_id();
                 update_user_meta($userId,'lv_email',$args_data['email']);
-                update_user_meta($userId,'lv_sub',isset($args_data['subscriber'])?true:false);
+                update_user_meta($userId,'lv_sub',isset($args_data['subscriber'])?1:0);
                 update_user_meta($userId,'lv_token',isset($args_data['token'])?$args_data['token']:null);
                 set_transient('lv_choose','yes');
                 wp_redirect(get_permalink(get_page_by_path('cart')));
@@ -106,7 +103,7 @@ class TD_Woo_Checkout_Framework
 
     function get_location_from_lv()
     {
-        if($this->is_user_has_lv_account())
+        if($this->is_user_lv_subscriber())
         {
             try {
                 $request = new ApiRequest();

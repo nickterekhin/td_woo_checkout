@@ -24,8 +24,6 @@ class TD_Woo_Checkout_Woocommerce_init
     }
     public function init()
     {
-        add_action('woocommerce_applied_coupon',array($this,'prevent_using_lv_discount_directly'));
-
         add_filter('woocommerce_locate_template',array($this,'init_woo_commerce_templates'),10,3);
         //add_action('woocommerce_before_cart_table',array($this,'add_lv_discount'));
         add_filter('woocommerce_checkout_fields', array($this,'add_custom_fields'));
@@ -40,7 +38,7 @@ class TD_Woo_Checkout_Woocommerce_init
     function add_custom_fields($fields)
     {
 
-        if( td_woo_checkout_api()->is_user_has_lv_account() ) {
+        if( td_woo_checkout_api()->is_user_lv_subscriber() ) {
 
 
             $res = td_woo_checkout_api()->get_location_from_lv();

@@ -31,7 +31,10 @@
                 let _self  = this;
 
                 this.$yes_btn.on('click',function(){
-                    window.open('http://staging.localviking.com/dfy/registrations/check?redirect_uri='+_self.settings.redirect_url,'_self');
+                    if(this.data('validate'))
+                        window.open('http://staging.localviking.com/dfy/registrations/new?redirect_uri='+_self.settings.redirect_url,'_self');
+                    else
+                        window.open('http://staging.localviking.com/dfy/registrations/check?redirect_uri='+_self.settings.redirect_url,'_self');
                 });
                 this.$no_btn.on('click',function(){
                     let hidden_elements_array = _self.btn_hidden_elements!=='undefined'?_self.btn_hidden_elements.split(','):[];

@@ -42,7 +42,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		<div class="col2-set" id="customer_details">
 			<div class="col-1">
 
-                <?php if(td_woo_checkout_api()->is_user_has_lv_account()): ?>
+                <?php if(td_woo_checkout_api()->is_user_lv_subscriber()): ?>
                 <div class="locations-fields">
                     <h3> LocalViking Locations </h3>
                     <div class="locations-fields__field-wrapper">

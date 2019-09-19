@@ -41,7 +41,7 @@ do_action( 'woocommerce_before_cart' );
 
 <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
     <?php do_action( 'woocommerce_before_cart_table' );
-    $coupon = $td_woo_checkout_api->is_user_has_lv_account();
+    $coupon = $td_woo_checkout_api->is_user_lv_subscriber();
     ?>
 
     <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
@@ -175,7 +175,7 @@ do_action( 'woocommerce_before_cart' );
             <td colspan="<?php echo $coupon?'7':'6'?>" class="actions">
 
                 <?php if ( wc_coupons_enabled() ) { ?>
-                    <div class="coupon <?php echo $td_woo_checkout_api->add_show_hide_css()?>">
+                    <div class="coupon <?php echo $td_woo_checkout_api->is_user_has_lv_account() && $td_woo_checkout_api->is_user_lv_subscriber() || $td_woo_checkout_api->is_show_hide_css() ?"td-show-cart-item":"td-hide-cart-item"?>">
                         <label for="coupon_code"><?php esc_html_e( 'Coupon:', 'woocommerce' ); ?></label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" /> <button type="submit" class="button" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?></button>
                         <?php do_action( 'woocommerce_cart_coupon' ); ?>
                     </div>
