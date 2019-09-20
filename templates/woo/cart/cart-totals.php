@@ -20,7 +20,7 @@ use function TdWooCheckout\src\framework\td_woo_checkout_api;
 defined( 'ABSPATH' ) || exit;
 
 ?>
-<div class="cart_totals <?php echo ( WC()->customer->has_calculated_shipping() ) ? 'calculated_shipping' : ''; ?> <?php echo td_woo_checkout_api()->is_user_has_lv_account() && td_woo_checkout_api()->is_user_lv_subscriber()||td_woo_checkout_api()->is_show_hide_css() ?"td-show-cart-item":"td-hide-cart-item"?>">
+<div class="cart_totals <?php echo ( WC()->customer->has_calculated_shipping() ) ? 'calculated_shipping' : ''; ?> <?php echo (td_woo_checkout_api()->is_user_has_lv_account() && td_woo_checkout_api()->is_user_lv_subscriber()) || td_woo_checkout_api()->is_show_hide_css() ?"td-show-cart-item":"td-hide-cart-item"?>">
 
     <?php do_action( 'woocommerce_before_cart_totals' ); ?>
 
@@ -114,23 +114,9 @@ defined( 'ABSPATH' ) || exit;
     <?php do_action( 'woocommerce_after_cart_totals' ); ?>
 
 </div>
-<?php if(!td_woo_checkout_api()->is_user_has_lv_account() && !td_woo_checkout_api()->is_show_hide_css() ){ ?>
+<?php if((!td_woo_checkout_api()->is_user_has_lv_account() || !td_woo_checkout_api()->is_user_lv_subscriber()) && !td_woo_checkout_api()->is_show_hide_css() ){ ?>
 <div id="td-lv-account-block" class="td-lv-account-block">
-     <h3>Do you have LocalVicking.com?</h3>
 
-    <div class="td-btn-group">
-        <button class="td-btn" data-type="yes" data-validate="false">Yes</button>
-        <button class="td-btn" data-type="no" data-hidden-elements="cart_totals,coupon">No</button>
-    </div>
 </div>
 
-<?php } else if(!td_woo_checkout_api()->is_user_lv_subscriber() && !td_woo_checkout_api()->is_show_hide_css() ) { ?>
-<div id="td-lv-account-block" class="td-lv-account-block td-validate-subscription">
-    <h3>To apply discount, we have to re-validate your LV subscription<p>please answer the question below</p></h3>
-
-    <div class="td-btn-group">
-        <button class="td-btn" data-type="yes" data-validate="true">Yes</button>
-        <button class="td-btn" data-type="no" data-hidden-elements="cart_totals,coupon">No</button>
-    </div>
-</div>
-<?php } ?>
+<?php }  ?>

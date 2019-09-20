@@ -24,7 +24,11 @@ $td_woo_checkout_api;
 <script type="text/javascript">
     (function($){
         $(document).ready(function(){
-            $("#td-lv-account-block").td_woo_checkout_manager({redirect_url:'<?php echo get_permalink(get_page_by_path('lv_hook_handler'))?>'});
+            $("#td-lv-account-block").td_woo_checkout_manager(
+                {redirect_url:'<?php echo get_permalink(get_page_by_path('lv_hook_handler'))?>',
+                    has_lv_account:<?php echo $td_woo_checkout_api->is_user_has_lv_account()?'true':'false'?>,
+                    is_lv_subscriber:<?php echo $td_woo_checkout_api->is_user_lv_subscriber()?'true':'false'?>
+                });
         });
     })(jQuery);
 </script>

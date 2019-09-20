@@ -54,7 +54,7 @@ class TD_Woo_Checkout_Init
 
                 $creds['remember'] = true;
                 $autologin_user = wp_signon( $creds, false );
-                set_transient('lv_choose','yes');
+                //set_transient('lv_choose','yes');
                 if ( !is_wp_error($autologin_user) )
                     wp_redirect(get_permalink(get_page_by_path('cart')));
             }

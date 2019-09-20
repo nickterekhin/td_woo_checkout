@@ -7,10 +7,10 @@
 .td-lv-account-block {
   text-align: right; }
 
-.td-validate-subscription h3 {
+.td-lv-account-block h3 {
   font-size: 1.4em; }
 
-.td-validate-subscription h3 > p {
+.td-lv-account-block h3 > p {
   margin: 5px 0;
   font-size: 0.5em;
   color: #60b1da; }
